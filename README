@@ -1,0 +1,13 @@
+= Git::Repo
+
+Syntactically rich Git library with a bias towards IRB.
+
+== git-irb
+
+Explore your repository with IRB.
+
+  $ git-irb
+  >> head == refs.heads.master
+  => true
+  >> head.sha1
+  => "0000000000000000000000000000000000000000"
