@@ -232,6 +232,11 @@ module Git
       end
     end
 
+    # Returns a Git::Repo::Config object.
+    def config(include_global = true)
+      Git::Repo::Config.new(self, include_global)
+    end
+
     # Returns a Git::Repo::Executor object for running commands.
     #
     #   repo.git.exec("status") #=> "...output of git status..."
@@ -249,4 +254,5 @@ require 'git/repo/object'
 require 'git/repo/ref'
 require 'git/repo/rev_list'
 require 'git/repo/identity'
+require 'git/repo/config'
 require 'git/repo/version'
