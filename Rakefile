@@ -7,8 +7,6 @@ require 'rake/testtask'
 require 'rake/rdoctask'
 require 'rake/packagetask'
 require 'rake/gempackagetask'
-require 'rake/contrib/sshpublisher'
-require 'rake/contrib/rubyforgepublisher'
 $:.unshift(File.dirname(__FILE__), 'lib')
 require 'git/repo'
 
@@ -16,9 +14,6 @@ PKG_BUILD     = ENV['PKG_BUILD'] ? '.' + ENV['PKG_BUILD'] : ''
 PKG_NAME      = 'git-repo'
 PKG_VERSION   = Git::Repo::VERSION::STRING
 PKG_FILE_NAME   = "#{PKG_NAME}-#{PKG_VERSION}"
-
-RUBY_FORGE_PROJECT = PKG_NAME
-RUBY_FORGE_USER    = "tpope"
 
 desc "Default task: test"
 task :default => [ :test ]
@@ -53,7 +48,7 @@ spec = Gem::Specification.new do |s|
 
   s.author = 'Tim Pope'
   s.email = 'ruby@tp0pe.0rg'.gsub(/0/,'o')
-  s.rubyforge_project = RUBY_FORGE_PROJECT
+  s.rubyforge_project = PKG_NAME
   s.homepage = "http://#{PKG_NAME}.rubyforge.org"
 
   s.has_rdoc = true
@@ -73,24 +68,6 @@ Rake::GemPackageTask.new(spec) do |p|
   p.gem_spec = spec
   p.need_tar = true
   p.need_zip = true
-end
-
-# Publish documentation
-desc "Publish the API documentation"
-task :pdoc => [:rerdoc] do 
-  # Rake::RubyForgePublisher.new(RUBY_FORGE_PROJECT,RUBY_FORGE_USER).upload
-  Rake::SshDirPublisher.new("rubyforge.org", "/var/www/gforge-projects/#{PKG_NAME}", "doc").upload
-end
-
-desc "Publish the release files to RubyForge."
-task :release => [ :package ] do
-  `rubyforge login`
-
-  for ext in %w( gem tgz zip )
-    release_command = "rubyforge add_release #{PKG_NAME} #{PKG_NAME} 'REL #{PKG_VERSION}' pkg/#{PKG_NAME}-#{PKG_VERSION}.#{ext}"
-    puts release_command
-    system(release_command)
-  end
 end
 
 begin
