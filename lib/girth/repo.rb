@@ -152,7 +152,7 @@ module Girth
     end
 
     def inspect
-      "#{Girth::Repo.inspect}[#{@argument.inspect}]"
+      "#{Girth.inspect}[#{@argument.inspect}]"
     end
 
     def each_ref(*args)
