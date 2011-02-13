@@ -1,6 +1,6 @@
 $:.unshift(File.dirname(File.dirname(__FILE__))+'/lib')
 
-require 'git/repo'
+require 'girth'
 require 'test/unit'
 require 'fileutils'
 require 'tempfile'

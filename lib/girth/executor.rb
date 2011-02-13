@@ -1,4 +1,5 @@
-require 'git/repo/mixin'
+require 'open3'
+require 'girth/mixin'
 
 module Git
   class Repo::Executor

@@ -1,4 +1,4 @@
-require 'git/repo/mixin'
+require 'girth/mixin'
 
 module Git
   # This class is instantiated by Git::Repo#rev_list, and can be iterated

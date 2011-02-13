@@ -1,4 +1,4 @@
-require 'git/repo/mixin'
+require 'girth/mixin'
 
 module Git
   class Repo::Config

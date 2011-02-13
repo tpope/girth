@@ -8,7 +8,7 @@ require 'rake/rdoctask'
 require 'rake/packagetask'
 require 'rake/gempackagetask'
 $:.unshift(File.dirname(__FILE__), 'lib')
-require 'git/repo'
+require 'girth'
 
 PKG_BUILD     = ENV['PKG_BUILD'] ? '.' + ENV['PKG_BUILD'] : ''
 PKG_NAME      = 'git-repo'

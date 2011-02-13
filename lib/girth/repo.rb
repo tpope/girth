@@ -1,11 +1,4 @@
-require 'open3'
-
 module Git
-
-  def self.[](dir)
-    Repo[dir]
-  end
-
   class Repo
 
     class Error < ::RuntimeError
@@ -248,11 +241,3 @@ module Git
 
   Repository = Repo
 end
-
-require 'git/repo/executor'
-require 'git/repo/object'
-require 'git/repo/ref'
-require 'git/repo/rev_list'
-require 'git/repo/identity'
-require 'git/repo/config'
-require 'git/repo/version'

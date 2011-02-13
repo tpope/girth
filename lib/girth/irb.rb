@@ -1,4 +1,4 @@
-require 'git/repo'
+require 'girth'
 
 module Git
 

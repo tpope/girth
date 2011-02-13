@@ -1,4 +1,4 @@
-require 'git/repo/mixin'
+require 'girth/mixin'
 require 'forwardable'
 
 module Git
