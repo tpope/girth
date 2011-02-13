@@ -31,8 +31,8 @@ Rake::TestTask.new { |t|
 Rake::RDocTask.new { |rdoc|
   rdoc.rdoc_dir = 'doc'
   rdoc.rdoc_files.add('lib')
-  rdoc.rdoc_files.add('README')
-  rdoc.main     = "README"
+  rdoc.rdoc_files.add('README.rdoc')
+  rdoc.main     = "README.rdoc"
   rdoc.title    = "Git::Repo"
   rdoc.options << '--inline-source'
 }
@@ -59,7 +59,7 @@ spec = Gem::Specification.new do |s|
   s.executables = ["git-irb"]
   s.default_executable = "git-irb"
 
-  s.files = [ "Rakefile" ] #, "README", "setup.rb" ]
+  s.files = [ "Rakefile", "README.rdoc" ]
   s.files = s.files + Dir.glob( "lib/**/*.rb" )
   s.files = s.files + Dir.glob( "test/**/*" ).reject { |item| item[-1] == ?~ || item.include?( "\.svn" ) }
 end
