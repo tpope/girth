@@ -9,11 +9,11 @@ class TagTest < Test::Unit::TestCase
   end
 
   def test_should_implicitly_dereference
-    assert_kind_of Git::Ref,    @tag_ref
-    assert_kind_of Git::Tag,    @tag_ref.object
-    assert_kind_of Git::Tag,    @tag_ref.tag
-    assert_kind_of Git::Commit, @tag_ref.commit
-    assert_kind_of Git::Commit, @tag_ref[]
+    assert_kind_of Girth::Ref,    @tag_ref
+    assert_kind_of Girth::Tag,    @tag_ref.object
+    assert_kind_of Girth::Tag,    @tag_ref.tag
+    assert_kind_of Girth::Commit, @tag_ref.commit
+    assert_kind_of Girth::Commit, @tag_ref[]
   end
 
   def test_should_have_metadata

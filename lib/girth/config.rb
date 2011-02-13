@@ -1,9 +1,9 @@
 require 'girth/mixin'
 
-module Git
-  class Repo::Config
+module Girth
+  class Config
 
-    include Git::Repo::Mixin
+    include Girth::Mixin
 
     def initialize(repo, include_global = true)
       @repo, @include_global = repo, include_global

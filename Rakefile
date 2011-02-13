@@ -11,8 +11,8 @@ $:.unshift(File.dirname(__FILE__), 'lib')
 require 'girth'
 
 PKG_BUILD     = ENV['PKG_BUILD'] ? '.' + ENV['PKG_BUILD'] : ''
-PKG_NAME      = 'git-repo'
-PKG_VERSION   = Git::Repo::VERSION::STRING
+PKG_NAME      = 'girth'
+PKG_VERSION   = Girth::VERSION::STRING
 PKG_FILE_NAME   = "#{PKG_NAME}-#{PKG_VERSION}"
 
 desc "Default task: test"
@@ -33,7 +33,7 @@ Rake::RDocTask.new { |rdoc|
   rdoc.rdoc_files.add('lib')
   rdoc.rdoc_files.add('README.rdoc')
   rdoc.main     = "README.rdoc"
-  rdoc.title    = "Git::Repo"
+  rdoc.title    = "Girth"
   rdoc.options << '--inline-source'
 }
 

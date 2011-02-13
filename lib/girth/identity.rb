@@ -1,4 +1,4 @@
-module Git
+module Girth
   # Encapsulates a user's name, email, and optionally a timestamp.
   class Identity
 
@@ -28,7 +28,7 @@ module Git
       elsif match_data = string.match(/^(.*) <(.*)>$/)
         Identity.new(match_data[1], match_data[2])
       else
-        raise Git::Repo::Error, "invalid identity #{string}"
+        raise Girth::Error, "invalid identity #{string}"
       end
     end
 
@@ -103,6 +103,4 @@ module Git
     end
 
   end
-
-  Repo::Identity = Identity
 end

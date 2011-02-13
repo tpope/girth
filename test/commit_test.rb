@@ -8,11 +8,11 @@ class CommitTest < Test::Unit::TestCase
   end
 
   def test_should_implicitly_dereference
-    assert_kind_of Git::Ref,    @repo.head
-    assert_kind_of Git::Commit, @repo.head.object
-    assert_kind_of Git::Commit, @repo.head.commit
-    assert_kind_of Git::Commit, @repo.head[]
-    assert_kind_of Git::Blob,   @repo.head[".gitignore"]
+    assert_kind_of Girth::Ref,    @repo.head
+    assert_kind_of Girth::Commit, @repo.head.object
+    assert_kind_of Girth::Commit, @repo.head.commit
+    assert_kind_of Girth::Commit, @repo.head[]
+    assert_kind_of Girth::Blob,   @repo.head[".gitignore"]
   end
 
   def test_should_index
@@ -41,8 +41,8 @@ class CommitTest < Test::Unit::TestCase
 
     assert_equal "Commit 2\n",   commit[/Commit 2/].message
     assert_raise(ArgumentError) {commit[/Commit 2/,1]}
-    assert_kind_of Git::Tree,    commit[""]
-    assert_kind_of Git::Blob,    commit[".gitignore"]
+    assert_kind_of Girth::Tree,  commit[""]
+    assert_kind_of Girth::Blob,  commit[".gitignore"]
     assert_raise(ArgumentError) {commit[".gitignore",1]}
   end
 

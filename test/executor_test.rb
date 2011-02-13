@@ -7,12 +7,12 @@ class ExecutorTest < Test::Unit::TestCase
   end
 
   def test_stderr_should_raise
-    assert_nothing_raised                    { @repo.git.exec("show","HEAD") }
-    assert_raise(Git::Repo::Executor::Error) { @repo.git.exec("show","TAIL") }
+    assert_nothing_raised                { @repo.git.exec("show","HEAD") }
+    assert_raise(Girth::Executor::Error) { @repo.git.exec("show","TAIL") }
   end
 
   def test_should_have_version
-    assert_match /\A\d[\d.]*\d\z/, Git::Repo::Executor.version
+    assert_match /\A\d[\d.]*\d\z/, Girth::Executor.version
   end
 
 end

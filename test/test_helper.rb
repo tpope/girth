@@ -9,13 +9,13 @@ class Test::Unit::TestCase
 
   def create_empty_repo(directory = nil)
     if directory.nil?
-      file = Tempfile.new("git-test")
+      file = Tempfile.new("girth-test")
       directory = file.path
       file.unlink
     end
     at_exit { FileUtils.rm_rf(directory) }
     FileUtils.mkdir_p(directory)
-    repo = Git::Repo.init(directory,true)
+    repo = Girth.init(directory,true)
     repo.git.exec("config","user.name","Him")
     repo.git.exec("config","user.email","him@him.him")
     blank = repo.create("")

@@ -1,12 +1,12 @@
 require 'girth/mixin'
 require 'forwardable'
 
-module Git
+module Girth
 
   # Encapsulates a reference, such as a branch, tag, or HEAD.
   class Ref
 
-    include Git::Repo::Mixin
+    include Girth::Mixin
     extend Forwardable
 
     def initialize(repo, path) #:nodoc:
@@ -71,7 +71,7 @@ module Git
     # "refs/tags".
     class Collection
 
-      include Git::Repo::Mixin
+      include Girth::Mixin
       include Enumerable
 
       def initialize(repo, path)
@@ -81,7 +81,7 @@ module Git
       # Recursively iterate through all contained references.
       def each
         repo.each_ref(@path) do |object, ref|
-          yield Git::Ref.new(repo, ref)
+          yield Girth::Ref.new(repo, ref)
         end
       end
 
@@ -90,7 +90,7 @@ module Git
       def [](name)
         refs = []
         repo.each_ref(path = "#@path/#{name}") do |object, ref|
-          return Git::Ref.new(repo, ref) if ref == path
+          return Girth::Ref.new(repo, ref) if ref == path
           refs << ref
         end
         return Collection.new(repo, path) if refs.any?
@@ -101,7 +101,7 @@ module Git
         if args == [:collection]
           self[method] || Collection.new(repo,method)
         elsif args.empty?
-          self[method] or raise Git::Repo::Error, "no such reference #@path/#{method}"
+          self[method] or raise Girth::Error, "no such reference #@path/#{method}"
         else
           super(method,*args,&block)
         end
@@ -127,7 +127,7 @@ module Git
     # reflog
     class Log
 
-      include Git::Repo::Mixin
+      include Girth::Mixin
       extend Forwardable
       include Enumerable
 
@@ -166,7 +166,7 @@ module Git
       end
 
       class Entry
-        include Git::Repo::Mixin
+        include Girth::Mixin
         extend Forwardable
 
         attr_reader :identity, :message, :object, :last, :index, :reflog
@@ -176,7 +176,7 @@ module Git
           metadata, @message = line.split("\t",2)
           @message.chomp!
           last, object, identity  = metadata.split(" ",3)
-          @identity = Git::Identity.parse(identity)
+          @identity = Girth::Identity.parse(identity)
           @object = @reflog.repo.instantiate_object(object,"commit")
           unless last == "0" * 40
             @last = @reflog.repo.instantiate_object(last,"commit")
@@ -200,5 +200,4 @@ module Git
 
   end
 
-  Repo::Ref = Ref
 end

@@ -1,7 +1,7 @@
 require 'girth/mixin'
 
-module Git
-  # This class is instantiated by Git::Repo#rev_list, and can be iterated
+module Girth
+  # This class is instantiated by Girth::Repo#rev_list, and can be iterated
   # through with #each or any Enumerable method.  Most commit limiting and
   # commit ordering options to git-rev-list(1) can be be specified as chained
   # method calls with the dashes changd to underscores, as in the following
@@ -10,9 +10,9 @@ module Git
   #   repo.rev_list(repo.head).max_count(10).skip(20)
   #   repo.rev_list(:all).before(Time.local(2007)).after(Time.local(2006))
   #   repo.rev_list(repo.head).first_parent.reverse
-  class Repo::RevList
+  class RevList
 
-    include Git::Repo::Mixin
+    include Girth::Mixin
     include Enumerable
     def initialize(repo, revisions, arguments = []) #:nodoc:
       @repo, @revisions, @arguments = repo, revisions, arguments

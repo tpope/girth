@@ -1,12 +1,12 @@
 require 'girth/mixin'
 require 'forwardable'
 
-module Git
+module Girth
 
   # Abstract base class for Tag, Commit, Tree, and Blob.
-  class Repo::Object
+  class Object
 
-    include Git::Repo::Mixin
+    include Girth::Mixin
     extend Forwardable
 
     def self.parsing_reader(*methods) #:nodoc:
@@ -37,7 +37,7 @@ module Git
       @sha1.gsub(/../n) {|x| x.to_i(16).chr}
     end
 
-    # +self+, for duck typing with Git::Reference objects.
+    # +self+, for duck typing with Girth::Reference objects.
     def object
       self
     end
@@ -61,7 +61,7 @@ module Git
 
   end
 
-  class Tag < Repo::Object
+  class Tag < Girth::Object
 
     alias tag object
 
@@ -92,7 +92,7 @@ module Git
 
   end
 
-  class Commit < Repo::Object
+  class Commit < Girth::Object
 
     alias commit object
 
@@ -230,7 +230,7 @@ module Git
     # Note that for a condition to be true, the sign must point towards the
     # child.
     def <=>(other)
-      unless other.kind_of?(Git::Repo::Object) || other.kind_of?(Git::Ref)
+      unless other.kind_of?(Girth::Object) || other.kind_of?(Girth::Ref)
         raise TypeError, "#{other.class} and a git object can't be compared", caller
       end
       return 0 if sha1 == other.sha1
@@ -240,7 +240,7 @@ module Git
       elsif merge_base == other.sha1
         return -1
       end
-    rescue Git::Executor::Error
+    rescue Girth::Executor::Error
       return nil
     end
 
@@ -283,7 +283,7 @@ module Git
 
   end
 
-  class Tree < Repo::Object
+  class Tree < Girth::Object
 
     include Enumerable
 
@@ -328,7 +328,7 @@ module Git
 
     class Entry
 
-      include Repo::Mixin
+      include Girth::Mixin
 
       attr_reader :mode, :name, :tree, :sha1
 
@@ -385,7 +385,7 @@ module Git
 
   end
 
-  class Blob < Repo::Object
+  class Blob < Girth::Object
     alias [] object # Shorthand to refer to a blob, tree, or commit
     alias blob object
     def body

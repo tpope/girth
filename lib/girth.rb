@@ -1,7 +1,14 @@
-module Git
+module Girth
+
+  class Error < ::RuntimeError
+  end
 
   def self.[](dir)
     Repo[dir]
+  end
+
+  def self.init(*args)
+    Repo.init(*args)
   end
 
   require 'girth/repo'
@@ -9,8 +16,7 @@ module Git
   require 'girth/object'
   require 'girth/ref'
   require 'girth/rev_list'
-  require 'girth/identity'
-  require 'girth/config'
-  require 'girth/version'
+  autoload :Config, 'girth/config'
+  autoload :Identity, 'girth/identity'
+  autoload :VERSION, 'girth/version'
 end
-

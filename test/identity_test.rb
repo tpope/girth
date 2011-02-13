@@ -3,15 +3,15 @@ require File.join(File.dirname(File.expand_path(__FILE__)),'test_helper')
 class IdentityTest < Test::Unit::TestCase
 
   def test_should_handle_weird_zone_offsets
-    identity = Git::Identity.new("Me","me@me.me",Time.utc(2000))
+    identity = Girth::Identity.new("Me","me@me.me",Time.utc(2000))
     identity.zone = "-0315"
     assert_equal -(3*3600+15*60), identity.utc_offset
-    assert_equal "#<Git::Identity Me <me@me.me> Fri Dec 31 20:45:00 1999 -0315>", identity.inspect
+    assert_equal "#<Girth::Identity Me <me@me.me> Fri Dec 31 20:45:00 1999 -0315>", identity.inspect
   end
 
   def test_should_strictly_parse
-    assert_raise(Git::Repo::Error) { Git::Identity.parse("Me <me@me.me> x +0000") }
-    identity = Git::Identity.parse("Me <me@me.me> 0 +0000")
+    assert_raise(Girth::Error) { Girth::Identity.parse("Me <me@me.me> x +0000") }
+    identity = Girth::Identity.parse("Me <me@me.me> 0 +0000")
     assert_equal "Me", identity.name
     assert_equal "me@me.me", identity.email
     assert_equal Time.at(0), identity.time
@@ -24,7 +24,7 @@ class IdentityTest < Test::Unit::TestCase
     ENV["GIT_COMMITTER_NAME"] = "You"
     ENV["GIT_AUTHOR_DATE"]    = nil
 
-    identity = Git::Identity.new("Me", "me@me.me", Time.utc(2000))
+    identity = Girth::Identity.new("Me", "me@me.me", Time.utc(2000))
     identity.as(:author, :committer) do
       assert_equal "Me",        ENV["GIT_COMMITTER_NAME"]
       assert_equal identity.date, ENV["GIT_AUTHOR_DATE"]
@@ -38,12 +38,12 @@ class IdentityTest < Test::Unit::TestCase
   end
 
   def test_should_function_without_time
-    identity = Git::Identity.new("Me", "me@me.me")
+    identity = Girth::Identity.new("Me", "me@me.me")
     assert_nil identity.utc_offset
     assert_nil identity.time
     assert_nil identity.date
     assert_match /^Me <me@me\.me> \d\d+ [+-]\d{4}$/, identity.to_s
-    assert_equal "#<Git::Identity Me <me@me.me> >", identity.inspect
+    assert_equal "#<Girth::Identity Me <me@me.me> >", identity.inspect
   end
 
 end

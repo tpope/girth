@@ -1,8 +1,7 @@
-module Git
-  class Repo
+require 'open3'
 
-    class Error < ::RuntimeError
-    end
+module Girth
+  class Repo
 
     def self.[](dir)
       new(dir)
@@ -83,7 +82,7 @@ module Git
     end
 
     def ref(path)
-      ref = Git::Ref.new(self, path)
+      ref = Girth::Ref.new(self, path)
       if path =~ /^[[:xdigit:]]{40}(\^\{\w+\})?$/
         ref.object
       else
@@ -97,7 +96,7 @@ module Git
       elsif path =~ /^([[:xdigit:]]{4,40})(?:\^\{(\w+)\})?$/
         instantiate_object(git.rev_parse(path))
       else
-        Git::Ref.new(self, path)
+        Girth::Ref.new(self, path)
       end
     end
 
@@ -111,10 +110,10 @@ module Git
       raise Error, "Full SHA1 required" unless sha1 =~ /^[[:xdigit:]]{40}$/
       type ||= git.exec("cat-file","-t",sha1).chomp
       case type
-      when "tag"    then    Git::Tag.new(self,sha1)
-      when "commit" then Git::Commit.new(self,sha1)
-      when "tree"   then   Git::Tree.new(self,sha1)
-      when "blob"   then   Git::Blob.new(self,sha1)
+      when "tag"    then    Girth::Tag.new(self,sha1)
+      when "commit" then Girth::Commit.new(self,sha1)
+      when "tree"   then   Girth::Tree.new(self,sha1)
+      when "blob"   then   Girth::Blob.new(self,sha1)
       else raise "unknown type #{type}"
       end
     end
@@ -137,7 +136,7 @@ module Git
     end
 
     def refs
-      @refs ||= Git::Ref::Collection.new(self,"refs")
+      @refs ||= Girth::Ref::Collection.new(self,"refs")
     end
 
     def heads
@@ -153,7 +152,7 @@ module Git
     end
 
     def inspect
-      "#{Git::Repo.inspect}[#{@argument.inspect}]"
+      "#{Girth::Repo.inspect}[#{@argument.inspect}]"
     end
 
     def each_ref(*args)
@@ -167,7 +166,7 @@ module Git
       RevList.new(self,args)
     end
 
-    # Runs Git::Repo::Executor::x in the work tree or git dir.
+    # Runs Girth::Executor::x in the work tree or git dir.
     def x(*args)
       in_work_tree do
         Executor.x(*args)
@@ -225,12 +224,12 @@ module Git
       end
     end
 
-    # Returns a Git::Repo::Config object.
+    # Returns a Girth::Config object.
     def config(include_global = true)
-      Git::Repo::Config.new(self, include_global)
+      Girth::Config.new(self, include_global)
     end
 
-    # Returns a Git::Repo::Executor object for running commands.
+    # Returns a Girth::Executor object for running commands.
     #
     #   repo.git.exec("status") #=> "...output of git status..."
     def git

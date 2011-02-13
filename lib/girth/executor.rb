@@ -1,12 +1,12 @@
 require 'open3'
 require 'girth/mixin'
 
-module Git
-  class Repo::Executor
+module Girth
+  class Executor
 
-    include Git::Repo::Mixin
+    include Girth::Mixin
 
-    class Error < Git::Repo::Error
+    class Error < Girth::Error
     end
 
     def self.popen3(*args,&block)
