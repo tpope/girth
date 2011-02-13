@@ -3,12 +3,12 @@ module Girth
   class Error < ::RuntimeError
   end
 
-  def self.[](dir)
-    Repo[dir]
+  def self.[](*args, &block)
+    Repo.send(:[], *args, &block)
   end
 
-  def self.init(*args)
-    Repo.init(*args)
+  def self.init(*args, &block)
+    Repo.init(*args, &block)
   end
 
   require 'girth/repo'

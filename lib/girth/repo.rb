@@ -3,7 +3,7 @@ require 'open3'
 module Girth
   class Repo
 
-    def self.[](dir)
+    def self.[](dir = nil)
       new(dir)
     end
 
