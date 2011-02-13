@@ -52,7 +52,7 @@ spec = Gem::Specification.new do |s|
   s.version = PKG_VERSION
 
   s.author = 'Tim Pope'
-  s.email = 'ruby@tp0pe.inf0'.gsub(/0/,'o')
+  s.email = 'ruby@tp0pe.0rg'.gsub(/0/,'o')
   s.rubyforge_project = RUBY_FORGE_PROJECT
   s.homepage = "http://#{PKG_NAME}.rubyforge.org"
 
