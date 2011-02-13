@@ -3,13 +3,20 @@ require 'open3'
 module Girth
   class Repo
 
-    def self.[](dir = nil)
-      new(dir)
+    def self.open(dir = nil)
+      repo = new(dir)
+      if block_given? && block.arity == 1
+        yield repo
+      elsif block_given?
+        repo.instance_eval(&block)
+      else
+        repo
+      end
     end
 
     attr_reader :git_dir
 
-    def self.init(dir = nil, bare = false)
+    def self.init(dir = nil, bare = false, &block)
       command = %w(git)
       command << "--bare" if bare
       command << "init"
@@ -27,7 +34,7 @@ module Girth
       ensure
         ENV["GIT_DIR"] = old_dir
       end
-      new(dir)
+      open(dir, &block)
     end
 
     def initialize(dir = nil)
