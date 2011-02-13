@@ -9,7 +9,8 @@ require 'rake/packagetask'
 require 'rake/gempackagetask'
 require 'rake/contrib/sshpublisher'
 require 'rake/contrib/rubyforgepublisher'
-require File.join(File.dirname(__FILE__), 'lib', 'git', 'repo')
+$:.unshift(File.dirname(__FILE__), 'lib')
+require 'git/repo'
 
 PKG_BUILD     = ENV['PKG_BUILD'] ? '.' + ENV['PKG_BUILD'] : ''
 PKG_NAME      = 'git-repo'

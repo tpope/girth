@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/test_helper'
+require File.join(File.dirname(File.expand_path(__FILE__)),'test_helper')
 
 class ConfigTest < Test::Unit::TestCase
 
