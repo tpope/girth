@@ -348,9 +348,9 @@ module Girth
       # TODO: swap arguments to be consistent
       def inspect #:nodoc:
         if tree
-          "%s[(%s;%07o;%s)]" % [tree.inspect,mode,sha1[0,7].inspect,name.inspect]
+          "%s[(%s;%07o;%s)]" % [tree.inspect, sha1[0,7].inspect, mode, name.inspect]
         else
-          "%s.new(%s,%07o,%s)" % [self.class.inspect,sha1[0,7].inspect,mode,name.inspect]
+          "%s.new(%s,%07o,%s)" % [self.class.inspect, sha1[0,7].inspect, mode, name.inspect]
         end
       end
 
