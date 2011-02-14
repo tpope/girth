@@ -1,10 +1,22 @@
 = Girth
 
-Syntactically rich Git library with a bias towards IRB.
+Girth is a Git library for Ruby I started back when there weren't any Git
+libraries for Ruby and recently named and resurrected.  It's designed to be
+expressive and natural to use in IRB.  A ridiculous amount of effort was put
+into making inspect methods provide executable output.  When you call
+<tt>refs.heads.master</tt>, the inspect includes <tt>refs.heads.master</tt>
+(and just like in Git, you can shorten that call to just +master+).
+
+A big driver for the creation of this library was exploring the bowels of Git
+(side note: the same could be said of fugitive.vim).  As such, it's biased
+towards reading rather than writing, though has some support for both.  It
+feels like a natural choice for writing Git hooks, though I haven't used it
+for that much, yet.
 
 == git-irb
 
-Explore your repository with IRB.
+This command creates a repository object for your current repository and
+places you inside it in an IRB session.
 
   $ git-irb
   >> head == refs.heads.master
