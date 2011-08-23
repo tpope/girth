@@ -1,6 +1,6 @@
 require File.expand_path('../test_helper', __FILE__)
 
-class ConfigTest < Test::Unit::TestCase
+class ConfigTest < MiniTest::Unit::TestCase
 
   def setup
     @repo = create_empty_repo

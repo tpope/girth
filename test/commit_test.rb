@@ -1,6 +1,6 @@
 require File.expand_path('../test_helper', __FILE__)
 
-class CommitTest < Test::Unit::TestCase
+class CommitTest < MiniTest::Unit::TestCase
 
   def setup
     @repo = create_empty_repo
@@ -23,7 +23,7 @@ class CommitTest < Test::Unit::TestCase
 
     assert_equal "Commit 5\n",   commit[0].message
     assert_equal "Commit 3\n",   commit[2].message
-    assert_not_nil               commit[5]
+    refute_nil                   commit[5]
     assert_nil                   commit[6]
 
     assert_equal ["Commit 3\n","Commit 2\n"], commit[2,2].map {|c|c.message}
@@ -39,11 +39,11 @@ class CommitTest < Test::Unit::TestCase
     assert_equal [],             commit[6..8]
     assert_nil                   commit[7..8]
 
-    assert_equal "Commit 2\n",   commit[/Commit 2/].message
-    assert_raise(ArgumentError) {commit[/Commit 2/,1]}
-    assert_kind_of Girth::Tree,  commit[""]
-    assert_kind_of Girth::Blob,  commit[".gitignore"]
-    assert_raise(ArgumentError) {commit[".gitignore",1]}
+    assert_equal "Commit 2\n",    commit[/Commit 2/].message
+    assert_raises(ArgumentError) {commit[/Commit 2/,1]}
+    assert_kind_of Girth::Tree,   commit[""]
+    assert_kind_of Girth::Blob,   commit[".gitignore"]
+    assert_raises(ArgumentError) {commit[".gitignore",1]}
   end
 
   def test_should_have_metadata

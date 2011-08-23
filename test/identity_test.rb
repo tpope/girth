@@ -1,6 +1,6 @@
 require File.expand_path('../test_helper', __FILE__)
 
-class IdentityTest < Test::Unit::TestCase
+class IdentityTest < MiniTest::Unit::TestCase
 
   def test_should_handle_weird_zone_offsets
     identity = Girth::Identity.new("Me","me@me.me",Time.utc(2000))
@@ -10,7 +10,7 @@ class IdentityTest < Test::Unit::TestCase
   end
 
   def test_should_strictly_parse
-    assert_raise(Girth::Error) { Girth::Identity.parse("Me <me@me.me> x +0000") }
+    assert_raises(Girth::Error) { Girth::Identity.parse("Me <me@me.me> x +0000") }
     identity = Girth::Identity.parse("Me <me@me.me> 0 +0000")
     assert_equal "Me", identity.name
     assert_equal "me@me.me", identity.email

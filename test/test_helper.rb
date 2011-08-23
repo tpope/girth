@@ -1,11 +1,11 @@
 $:.unshift(File.expand_path('../../lib', __FILE__))
 
 require 'girth'
-require 'test/unit'
+require 'minitest/autorun'
 require 'fileutils'
 require 'tempfile'
 
-class Test::Unit::TestCase
+class MiniTest::Unit::TestCase
 
   def create_empty_repo(directory = nil)
     if directory.nil?
