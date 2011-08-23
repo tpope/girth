@@ -1,4 +1,4 @@
-require File.join(File.dirname(File.expand_path(__FILE__)),'test_helper')
+require File.expand_path('../test_helper', __FILE__)
 
 class IdentityTest < Test::Unit::TestCase
 

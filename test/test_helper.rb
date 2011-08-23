@@ -1,4 +1,4 @@
-$:.unshift(File.dirname(File.dirname(__FILE__))+'/lib')
+$:.unshift(File.expand_path('../../lib', __FILE__))
 
 require 'girth'
 require 'test/unit'
