@@ -165,7 +165,7 @@ module Girth
     def each_ref(*args)
       pattern = args.empty? ? "refs" : args.join("/")
       git.exec("for-each-ref", "--format=%(objectname) %(refname)", pattern) do |line|
-        yield *line.chomp.split(" ",2)
+        yield(*line.chomp.split(" ",2))
       end
     end
 

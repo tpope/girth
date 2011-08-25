@@ -99,7 +99,7 @@ module Girth
     parsing_reader :tree, :author, :committer, :parents, :message
     alias treeish tree
 
-    def_delegators :tree, :[], :/, :entries
+    def_delegators :tree, :/, :entries
 
     # First parent
     def succ
@@ -288,7 +288,7 @@ module Girth
     include Enumerable
 
     def entries
-      return @entries if @entries
+      return @entries if defined?(@entries)
       @entries = []
       git.popen3("cat-file","tree",@sha1) do |i,f,e|
         until f.eof?
@@ -330,7 +330,7 @@ module Girth
 
       include Girth::Mixin
 
-      attr_reader :mode, :name, :tree, :sha1
+      attr_reader :mode, :name, :tree
 
       def initialize(sha1, mode, name, tree = nil)
         @sha1, @mode, @name, @tree = sha1, mode, name, tree
